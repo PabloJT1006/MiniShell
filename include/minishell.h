@@ -48,7 +48,7 @@ typedef struct s_env_list
 
 typedef struct s_cmd
 {
-	char				**comand;
+	char				**command;
 	char				**choosen_path;
 	int					fd_in;
 	int					fd_out;
@@ -80,7 +80,7 @@ void					envp_list_add_front(t_env_list *lst, t_env_list *new);
 
 ///////////////////////// cd.c /////////////////////////
 /**
- * @brief Esta función verifica si el comando es "cd" y, si es así, 
+ * @brief Esta función verifica si el commando es "cd" y, si es así, 
  * llama a la función ft_cd	
  * 
  * @param data 
@@ -609,7 +609,7 @@ void					expand(t_data *data, char *input);
 t_cmd					*new_cmd(void);
 void					add_cmd_back(t_cmd **cmd, t_cmd *new_cmd);
 int						unexpected_token(t_token *token);
-char					**add_to_comand(char **arr, char *new_str);
+char					**add_to_command(char **arr, char *new_str);
 
 /****REDIR_HANDLERS****/
 int						handle_redirections(t_cmd *cmd, int *fd_in,
