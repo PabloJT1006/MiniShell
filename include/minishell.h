@@ -6,7 +6,7 @@
 /*   By: juguerre <juguerre@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:45:29 by juguerre          #+#    #+#             */
-/*   Updated: 2024/04/23 12:42:11 by juguerre         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:14:08 by pjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_cmd
 {
 	char				**comand;
 	char				**choosen_path;
-	int					*fd_in;
-	int					*fd_out;
+	int					fd_in;
+	int					fd_out;
 	struct s_cmd		*next;
 }						t_cmd;
 
@@ -594,13 +594,24 @@ int						is_space(char c);
 //handlers.c
 void					space_handler(t_data *data, char **str);
 void					word_handler(t_data *data, char **str);
-void					redir_handler(t_data *data,char **str);
+void					redir_handler(t_data *data, char **str);
 void					quotes_handler(t_data *data, char **str);
+
+/****EXPANSION CORE*******/
+char					*envp_key(char *str);
+char					*envp_value(t_data *data, char *str);
+char					*get_env_value(t_data *data, char **input);
+int						get_new_len(t_data *data, char *str);
+int						valid_key(char c);
+void					expand(t_data *data, char *input);
 
 /********FUNCION TEMPORAL print_token*******/
 void					print_token(t_data *data);
+void					print_cmd(t_cmd *cmd);
 
 /****FREE LISTS****/
+void					restore_lists(t_data **data, char *input);
+void					free_all(t_data *data);
 void					free_token(t_token **token);
 
 #endif
