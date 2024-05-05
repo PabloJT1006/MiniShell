@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-/// LAUNCHER: ......pipex.........
 
 int	main(int argc, char **argv, char **envp)
 {

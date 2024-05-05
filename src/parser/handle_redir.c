@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_redir.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pjimenez <pjimenez@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/05 20:02:37 by pjimenez          #+#    #+#             */
+/*   Updated: 2024/05/05 20:26:35 by pjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	handle_pipe(t_cmd *cmd, int *fd_in)
@@ -61,7 +73,7 @@ int	handle_redirections(t_cmd *cmd, int *fd_in, t_token **token)
 	else if ((*token)->key == TKN_REDIR_IN)
 		return (redir_in(*token, cmd));
 	else if ((*token)->key == TKN_REDIR_OUT
-			|| (*token)->key == TKN_REDIR_APPEND)
+		|| (*token)->key == TKN_REDIR_APPEND)
 		return (redir_out(*token, cmd));
 	else if ((*token)->key == TKN_REDIR_SOURCE)
 		return (here_doc_status(cmd, *token));

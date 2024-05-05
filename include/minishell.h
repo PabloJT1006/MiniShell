@@ -580,27 +580,52 @@ char 					*ft_valid_cmd(char *cmd);
 int 					ft_print_error(char *cmd);
 
 //****** CONSOLE INIT*****/
-//console_init.c
+
+/// @brief Inicializar la CLI
+/// @param data 
 void					console_init(t_data *data);
 
 //*****SIGNALS HANDLER*****/
-//signals_handler.c
+
+/// @brief Gestiona las señales introducidad por teclado
+/// @param  
 void					signals_call(void);
 
 //*******TOKEN FILL*********/
-//token_init.c
+
+/// @brief relena el token con la clave y el valor
+/// @param data La estructura de datos que contiene el estado del shell.
+/// @param key identificador del token
+/// @param value contenido del token
 void    				fill_token(t_data *data, int key, char *value);
+
+/// @brief segun lo introducido por el usuario se rellena el token
+/// @param data la estructura de datos que contiene el estado del shell.
+/// @param str input del usuario
+/// @return  1 si hay un error al generar el token quote, 0 en caso contrario
 int     				token_maker(t_data *data,char *str);
 
 /*UTILS FOR THE PARSER*/
 
-//parser_utils.c
+/// @brief verifica si el caracter es un caracter especial
+/// @param c caracter a verificar
+/// @return 
 int						special_chars(char c);
+
+/// @brief verifica si el caracter es un espacio
+/// @param c caracter a verificar
+/// @return 1 si es un espacio, 0 en caso contrario
 int						is_space(char c);
 
 /******CHARACTER HANDLERS(TOKENIZER)*****/
-//handlers.c
+/// @brief maneja los espacios
+/// @param data la estructura de datos que contiene el estado del shell.
+/// @param str input del usuario
 void					space_handler(t_data *data, char **str);
+
+/// @brief maneja las palabras
+/// @param data la estructura de datos que contiene el estado del shell.
+/// @param str input del usuario
 void					word_handler(t_data *data, char **str);
 void					redir_handler(t_data *data, char **str);
 int						quotes_handler(t_data *data, char **str);
@@ -614,28 +639,24 @@ int						get_new_len(t_data *data, char *content);
 int						valid_key(char c);
 void					expand(t_data *data);
 
-/****CMD FILL CORE*******/
-t_cmd					*new_cmd(void);
-void					add_cmd_back(t_cmd **cmd, t_cmd *new_cmd);
-int						unexpected_token(t_token *token);
-char					**add_to_command(char **arr, char *new_str);
 
 /****REDIR_HANDLERS****/
 int						handle_redirections(t_cmd *cmd, int *fd_in,
 							t_token **token);
-void					cmd_create(t_data *data);
 int						redir_out_last(t_token *token);
 
-/**CMD UTILS**/
+
+/****CMD CORE*******/
+t_cmd					*new_cmd(void);
+void					add_cmd_back(t_cmd **cmd, t_cmd *new_cmd);
+void					cmd_create(t_data *data);
+int						unexpected_token(t_token *token);
+char					**add_to_command(char **arr, char *new_str);
 void					change_cmd_out(t_cmd *cmd);
 int						status_check(int status);
 
 /****HERDE DOC HANDLERS***/
 int						here_doc_status(t_cmd *cmd, t_token *token);
-
-/********FUNCION TEMPORAL print_token*******/
-void					print_token(t_data *data);
-void					print_cmd(t_cmd *cmd);
 
 /****FREE LISTS****/
 void					restore_lists(t_data **data, char *input);
