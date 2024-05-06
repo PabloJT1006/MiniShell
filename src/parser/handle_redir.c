@@ -31,7 +31,7 @@ int	redir_in(t_token *token, t_cmd *cmd)
 	return (0);
 }
 
-int	redir_out(t_token *token, t_cmd *cmd)
+int	redir_out(t_token *token, t_cmd *cmd,t_token **ptr)
 {
 	if (cmd->fd_out > 2)
 		close(cmd->fd_out);
@@ -45,12 +45,15 @@ int	redir_out(t_token *token, t_cmd *cmd)
 				0644);
 	if (cmd->fd_out == -1)
 		return (1);
-	token = token->next;
+	*ptr = token->next;
 	return (0);
 }
 
 int	handle_redirections(t_cmd *cmd, int *fd_in, t_token **token)
 {
+	t_token	*tmp;
+
+	tmp = *token;
 	if (*fd_in != 0)
 	{
 		cmd->fd_in = *fd_in;
@@ -62,7 +65,7 @@ int	handle_redirections(t_cmd *cmd, int *fd_in, t_token **token)
 		return (redir_in(*token, cmd));
 	else if ((*token)->key == TKN_REDIR_OUT
 			|| (*token)->key == TKN_REDIR_APPEND)
-		return (redir_out(*token, cmd));
+		return (redir_out(tmp, cmd,token));
 	else if ((*token)->key == TKN_REDIR_SOURCE)
 		return (here_doc_status(cmd, *token));
 	return (0);
