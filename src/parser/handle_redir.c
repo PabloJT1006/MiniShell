@@ -36,13 +36,19 @@ int	redir_out(t_token *token, t_cmd *cmd,t_token **ptr)
 	if (cmd->fd_out > 2)
 		close(cmd->fd_out);
 	if (token->key == TKN_REDIR_APPEND)
+	{
 		cmd->fd_out = open(token->next->content,
 				O_WRONLY | O_CREAT | O_APPEND,
 				0644);
+		printf("append\n");
+	}
 	else
+	{
 		cmd->fd_out = open(token->next->content,
 				O_WRONLY | O_CREAT | O_TRUNC,
 				0644);
+		printf("not appedn\n");
+	}
 	if (cmd->fd_out == -1)
 		return (1);
 	*ptr = token->next;
